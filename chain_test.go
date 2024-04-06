@@ -14,7 +14,7 @@ import (
 func tagMiddleware(tag string) Constructor {
 	return func(h http.Handler) http.Handler {
 		return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
-			w.Write([]byte(tag))
+			_, _ = w.Write([]byte(tag))
 			h.ServeHTTP(w, r)
 		})
 	}
@@ -29,7 +29,7 @@ func funcsEqual(f1, f2 interface{}) bool {
 }
 
 var testApp = http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
-	w.Write([]byte("app\n"))
+	_, _ = w.Write([]byte("app\n"))
 })
 
 func TestNew(t *testing.T) {
